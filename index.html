@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cybercrime Platform Presentation - Nepal Police</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #38BDF8; /* Light Blue */
+            --background-dark: #0f172a; /* Slate 900 */
+            --background-light: #1e293b; /* Slate 800 */
+            --text-primary: #f8fafc; /* Slate 50 */
+            --text-secondary: #cbd5e1; /* Slate 300 */
+        }
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-dark);
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+        }
+        #presentation-container {
+            width: 100%;
+            height: 100%;
+            position: relative;
+        }
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem 4rem;
+            opacity: 0;
+            transition: opacity 0.6s ease-in-out, transform 0.6s ease-in-out;
+            transform: scale(0.98);
+            pointer-events: none;
+            color: var(--text-primary);
+        }
+        .slide.active {
+            opacity: 1;
+            transform: scale(1);
+            z-index: 10;
+            pointer-events: auto;
+        }
+        .slide-content {
+            max-width: 1100px;
+            width: 100%;
+            max-height: 90vh;
+            text-align: center;
+            overflow-y: auto; /* Add scroll for overflow content */
+        }
+        .slide h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+        }
+        .slide h2 {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 700;
+            margin-bottom: 2rem;
+            color: var(--text-secondary);
+        }
+        .slide p, .slide li {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            line-height: 1.6;
+            color: var(--text-secondary);
+        }
+        .slide ul {
+            list-style-position: inside;
+            text-align: left;
+            margin: 0 auto;
+            max-width: 700px;
+        }
+        .nav-controls {
+            position: fixed;
+            bottom: 1.5rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 1rem;
+            z-index: 20;
+        }
+        .nav-button {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .nav-button:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        #fullscreen-btn {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            z-index: 20;
+        }
+        #progress-bar-container {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: var(--background-light);
+            z-index: 30;
+        }
+        #progress-bar {
+            height: 100%;
+            background-color: var(--primary-color);
+            width: 0%;
+            transition: width 0.3s ease-out;
+        }
+        .tech-logos {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .tech-logos img {
+            height: 60px;
+            filter: grayscale(100%) brightness(300%);
+            transition: filter 0.3s;
+        }
+        .tech-logos img:hover {
+            filter: grayscale(0%);
+        }
+        .icon-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            text-align: left;
+        }
+        .icon-grid .item {
+            background: var(--background-light);
+            padding: 1.5rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .icon-grid .item svg {
+            width: 2.5rem;
+            height: 2.5rem;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="presentation-container">
+        <!-- Slide 1: Title -->
+        <div id="slide1" class="slide active">
+            <div class="slide-content">
+                <h1 class="text-5xl md:text-6xl">A Next-Generation Cybercrime Platform</h1>
+                <h2 class="text-2xl md:text-3xl mt-4">"Securing Nepal's Digital Future"</h2>
+                <p class="mt-8 text-lg">A Proposal for the Nepal Police Cyber Bureau</p>
+                <div class="mt-8">
+                    <svg class="w-24 h-24 mx-auto text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                </div>
+                <p class="mt-4 text-sm text-gray-400">Presented to: Technical Officers, Cyber Bureau</p>
+            </div>
+        </div>
+
+        <!-- Slide 2: The Alarming Reality -->
+        <div id="slide2" class="slide">
+            <div class="slide-content">
+                <h1>The Alarming Reality of Cybercrime in Nepal</h1>
+                <h2>"The Digital Threat is Real and Growing Exponentially"</h2>
+                <div class="icon-grid">
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>
+                        <h3 class="font-bold text-xl mb-2">Massive Spike in Cases</h3>
+                        <p>Cases have skyrocketed, overwhelming the Bureau's resources.</p>
+                    </div>
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M15.042 21.672L13.684 16.6m0 0l-2.51 2.225.569-9.47 5.227 7.917-3.286-.672zM12 2.25V4.5m5.834.166l-1.591 1.591M21.75 12h-2.25m-1.666 5.834L16.5 16.5M4.5 12H2.25m1.666-5.834L5.5 7.5M12 21.75V19.5" /></svg>
+                        <h3 class="font-bold text-xl mb-2">Evolving Threats</h3>
+                        <p>From financial fraud and hacking to online harassment and misinformation.</p>
+                    </div>
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>
+                        <h3 class="font-bold text-xl mb-2">National Security Risks</h3>
+                        <p>Critical infrastructure and sensitive government data are prime targets.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Current Challenges -->
+        <div id="slide3" class="slide">
+            <div class="slide-content">
+                <h1>Current Challenges: An Uphill Battle</h1>
+                <h2>"Fighting a 21st-century battle with 20th-century tools."</h2>
+                <div class="icon-grid">
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h.008v.008H8.25v-.008z" /></svg>
+                        <h3 class="font-bold text-xl mb-2">Manual Processes</h3>
+                        <p>Over-reliance on paperwork is slow, inefficient, and error-prone.</p>
+                    </div>
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" /></svg>
+                        <h3 class="font-bold text-xl mb-2">Fragmented Data</h3>
+                        <p>Siloed information hinders effective investigation and pattern analysis.</p>
+                    </div>
+                    <div class="item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" /></svg>
+                        <h3 class="font-bold text-xl mb-2">Evidence Integrity</h3>
+                        <p>Ensuring a secure and verifiable chain of custody for digital evidence is a major hurdle.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ... other slides will follow this improved structure ... -->
+
+        <!-- Slide 4: The Vision -->
+        <div id="slide4" class="slide">
+            <div class="slide-content">
+                <h1>The Vision: A Unified & Automated Platform</h1>
+                <h2>"A paradigm shift in how we combat cybercrime."</h2>
+                <p class="mt-8 max-w-3xl mx-auto">We propose a state-of-the-art, integrated platform that empowers the Bureau with advanced tools, protects citizens with a secure reporting portal, and deters criminals with a proactive, tech-forward approach.</p>
+                <img src="https://placehold.co/800x400/0f172a/38BDF8?text=Integrated+Platform+Dashboard" alt="Dashboard UI" class="mx-auto mt-8 rounded-lg shadow-2xl">
+            </div>
+        </div>
+
+        <!-- Slide 5: Key Features -->
+        <div id="slide5" class="slide">
+            <div class="slide-content">
+                <h1>Key Features of the Proposed Platform</h1>
+                <h2>"A comprehensive solution for a complex problem."</h2>
+                <ul class="mt-8 space-y-4 text-left max-w-4xl mx-auto">
+                    <li><strong class="text-sky-400">Citizen-Centric Reporting Portal:</strong> Easy-to-use online form for filing complaints with multimedia evidence upload.</li>
+                    <li><strong class="text-sky-400">Automated Case Triage:</strong> AI-powered system to categorize and prioritize cases based on severity and type.</li>
+                    <li><strong class="text-sky-400">Secure Digital Evidence Management:</strong> Blockchain-based system to ensure the immutability and integrity of evidence.</li>
+                    <li><strong class="text-sky-400">Advanced Analytics Dashboard:</strong> Real-time data visualization, trend analysis, and predictive insights.</li>
+                    <li><strong class="text-sky-400">Integrated Communication Hub:</strong> Secure messaging for seamless collaboration between officers and complainants.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: The Citizen Experience -->
+        <div id="slide6" class="slide">
+            <div class="slide-content">
+                <h1>The Citizen Experience: Simple, Secure, Transparent</h1>
+                <h2>"Building trust through technology."</h2>
+                <div class="icon-grid">
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">24/7 Accessibility</h3>
+                        <p>Report crimes anytime, from anywhere, on any device.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Real-time Case Tracking</h3>
+                        <p>Monitor the status of complaints from submission to resolution.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Secure Communication</h3>
+                        <p>Direct and confidential messaging with investigating officers.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Automated Updates</h3>
+                        <p>Receive notifications at key stages of the investigation.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 7: Empowering the Bureau -->
+        <div id="slide7" class="slide">
+            <div class="slide-content">
+                <h1>Empowering the Bureau: Efficiency & Intelligence</h1>
+                <h2>"From reactive to proactive cyber policing."</h2>
+                <div class="icon-grid">
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Reduced Workload</h3>
+                        <p>Automation frees up officers for critical investigative work.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Data-Driven Insights</h3>
+                        <p>Identify crime hotspots, patterns, and emerging threats.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Enhanced Collaboration</h3>
+                        <p>Seamless information sharing between units and agencies.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Faster Case Resolution</h3>
+                        <p>Streamlined workflows lead to quicker investigations.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 8: The Technology Stack -->
+        <div id="slide8" class="slide">
+            <div class="slide-content">
+                <h1>The Technology Stack: Built for the Future</h1>
+                <h2>"Leveraging cutting-edge technologies for a robust and scalable platform."</h2>
+                <div class="tech-logos mt-12">
+                    <img src="https://www.vectorlogo.zone/logos/python/python-icon.svg" title="Python" alt="Python Logo">
+                    <img src="https://www.vectorlogo.zone/logos/djangoproject/djangoproject-icon.svg" title="Django" alt="Django Logo">
+                    <img src="https://www.vectorlogo.zone/logos/reactjs/reactjs-icon.svg" title="React" alt="React Logo">
+                    <img src="https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg" title="PostgreSQL" alt="PostgreSQL Logo">
+                    <img src="https://www.vectorlogo.zone/logos/tensorflow/tensorflow-icon.svg" title="TensorFlow" alt="TensorFlow Logo">
+                    <img src="https://www.vectorlogo.zone/logos/hyperledger/hyperledger-icon.svg" title="Hyperledger" alt="Hyperledger Logo">
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 9: The Power of Python -->
+        <div id="slide9" class="slide">
+            <div class="slide-content">
+                <h1>The Power of Python: The Engine of Our Platform</h1>
+                <h2>"Versatility, Power, and a Thriving Community"</h2>
+                <ul class="mt-8 space-y-4 text-left max-w-3xl mx-auto">
+                    <li><strong class="text-sky-400">Rapid Development:</strong> Clean syntax and extensive libraries accelerate the development process.</li>
+                    <li><strong class="text-sky-400">AI/ML Powerhouse:</strong> The go-to language for machine learning, enabling us to build intelligent features.</li>
+                    <li><strong class="text-sky-400">Scalability:</strong> Proven to handle large-scale applications and high traffic loads.</li>
+                    <li><strong class="text-sky-400">Strong Community Support:</strong> Access to a vast pool of resources, talent, and pre-built solutions.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 10: Blockchain for Evidence Integrity -->
+        <div id="slide10" class="slide">
+            <div class="slide-content">
+                <h1>Blockchain for Evidence: The Unbreakable Chain of Custody</h1>
+                <h2>"Ensuring trust and admissibility in the digital age."</h2>
+                <ul class="mt-8 space-y-4 text-left max-w-3xl mx-auto">
+                    <li><strong class="text-sky-400">Immutable Record:</strong> Every action on evidence is recorded on an unchangeable ledger.</li>
+                    <li><strong class="text-sky-400">Enhanced Transparency:</strong> Authorized stakeholders can view the chain of custody in real-time.</li>
+                    <li><strong class="text-sky-400">Increased Security:</strong> Decentralized nature makes it highly resistant to tampering.</li>
+                    <li><strong class="text-sky-400">Legal Admissibility:</strong> Strengthens the legal standing of digital evidence in court.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 11: AI-Powered Automation -->
+        <div id="slide11" class="slide">
+            <div class="slide-content">
+                <h1>AI-Powered Automation: The Future of Investigation</h1>
+                <h2>"From data overload to actionable intelligence."</h2>
+                <ul class="mt-8 space-y-4 text-left max-w-3xl mx-auto">
+                    <li><strong class="text-sky-400">Automated Complaint Analysis:</strong> NLP models to extract key information from citizen reports.</li>
+                    <li><strong class="text-sky-400">Predictive Policing:</strong> Identify potential cybercrime hotspots and vulnerable targets.</li>
+                    <li><strong class="text-sky-400">Link Analysis:</strong> Uncover hidden connections between cases, suspects, and criminal networks.</li>
+                    <li><strong class="text-sky-400">Anomaly Detection:</strong> Flag suspicious activities and potential security breaches in real-time.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 12: Implementation Roadmap -->
+        <div id="slide12" class="slide">
+            <div class="slide-content">
+                <h1>Implementation Roadmap: A Phased Approach</h1>
+                <h2>"A clear path to a secure digital future."</h2>
+                <div class="icon-grid mt-8">
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Phase 1 (1 Week)</h3>
+                        <p>Platform development, citizen reporting portal, and core case management features.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Phase 2 (2 -3 Weeks)</h3>
+                        <p>Integration of AI-powered automation, advanced analytics, and blockchain evidence management.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Phase 3 (4th Weeks)</h3>
+                        <p>National rollout, comprehensive training of personnel, and continuous improvement.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 13: The Investment -->
+        <div id="slide13" class="slide">
+            <div class="slide-content">
+                <h1>The Investment: A Small Price for a Secure Nation</h1>
+                <h2>"Investing in our digital sovereignty."</h2>
+                <div class="icon-grid mt-8">
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Initial Development Cost</h3>
+                        <p>A detailed budget breakdown will be provided in a separate proposal document.</p>
+                    </div>
+                    <div class="item">
+                        <h3 class="font-bold text-xl mb-2">Long-term ROI</h3>
+                        <ul class="list-disc list-inside mt-2">
+                            <li>Reduced operational costs.</li>
+                            <li>Increased recovery of stolen funds.</li>
+                            <li>Enhanced public trust.</li>
+                            <li>A more secure digital ecosystem.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 14: Conclusion -->
+        <div id="slide14" class="slide">
+            <div class="slide-content">
+                <h1>Conclusion & Call to Action</h1>
+                <h2>"The future of law enforcement is digital. Let's build it together."</h2>
+                <ul class="mt-8 space-y-4 text-left max-w-2xl mx-auto">
+                    <li><strong class="text-sky-400">The Need is Urgent:</strong> The cyber threat is real, growing, and affects every citizen.</li>
+                    <li><strong class="text-sky-400">The Solution is Here:</strong> A modern, integrated platform is the key to effective cybercrime fighting.</li>
+                    <li><strong class="text-sky-400">Let's Collaborate:</strong> We are ready to partner with the Cyber Bureau to make this vision a reality.</li>
+                </ul>
+                <h3 class="mt-12 text-3xl font-bold">Questions and Discussion</h3>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Navigation Controls -->
+    <div class="nav-controls">
+        <button id="prev" class="nav-button">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+        </button>
+        <button id="next" class="nav-button">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </button>
+    </div>
+
+    <!-- Fullscreen Button -->
+    <button id="fullscreen-btn" class="nav-button">
+        <svg id="fs-enter-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5"></path></svg>
+        <svg id="fs-exit-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 1v4m0 0h-4m4 0l-5-5"></path></svg>
+    </button>
+
+    <!-- Progress Bar -->
+    <div id="progress-bar-container">
+        <div id="progress-bar"></div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const slides = document.querySelectorAll('.slide');
+            const totalSlides = slides.length;
+            let currentSlide = 1;
+
+            const prevButton = document.getElementById('prev');
+            const nextButton = document.getElementById('next');
+            const progressBar = document.getElementById('progress-bar');
+            const fullscreenBtn = document.getElementById('fullscreen-btn');
+            const fsEnterIcon = document.getElementById('fs-enter-icon');
+            const fsExitIcon = document.getElementById('fs-exit-icon');
+            const presentationContainer = document.getElementById('presentation-container');
+
+            function showSlide(slideNumber) {
+                if (slideNumber < 1 || slideNumber > totalSlides) return;
+                currentSlide = slideNumber;
+
+                slides.forEach(slide => slide.classList.remove('active'));
+                document.getElementById(`slide${currentSlide}`).classList.add('active');
+
+                updateProgressBar();
+                updateNavButtons();
+            }
+
+            function showNextSlide() {
+                if (currentSlide < totalSlides) showSlide(currentSlide + 1);
+            }
+
+            function showPrevSlide() {
+                if (currentSlide > 1) showSlide(currentSlide - 1);
+            }
+
+            function updateProgressBar() {
+                const progressPercentage = ((currentSlide - 1) / (totalSlides - 1)) * 100;
+                progressBar.style.width = `${progressPercentage}%`;
+            }
+
+            function updateNavButtons() {
+                prevButton.style.visibility = currentSlide === 1 ? 'hidden' : 'visible';
+                nextButton.style.visibility = currentSlide === totalSlides ? 'hidden' : 'visible';
+            }
+
+            function toggleFullScreen() {
+                if (!document.fullscreenElement) {
+                    presentationContainer.requestFullscreen().catch(err => {
+                        alert(`Error attempting to enable full-screen mode: ${err.message} (${err.name})`);
+                    });
+                } else {
+                    document.exitFullscreen();
+                }
+            }
+            
+            function updateFullscreenIcon() {
+                if (document.fullscreenElement) {
+                    fsEnterIcon.classList.add('hidden');
+                    fsExitIcon.classList.remove('hidden');
+                } else {
+                    fsEnterIcon.classList.remove('hidden');
+                    fsExitIcon.classList.add('hidden');
+                }
+            }
+
+            nextButton.addEventListener('click', showNextSlide);
+            prevButton.addEventListener('click', showPrevSlide);
+            fullscreenBtn.addEventListener('click', toggleFullScreen);
+            document.addEventListener('fullscreenchange', updateFullscreenIcon);
+
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'ArrowRight' || event.key === ' ') {
+                    showNextSlide();
+                } else if (event.key === 'ArrowLeft') {
+                    showPrevSlide();
+                } else if (event.key === 'f') {
+                    toggleFullScreen();
+                }
+            });
+
+            showSlide(1);
+        });
+    </script>
+</body>
+</html>
